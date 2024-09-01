@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
-public class Greedy2 {
+public class BOJ_11000 {
     
     public static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 

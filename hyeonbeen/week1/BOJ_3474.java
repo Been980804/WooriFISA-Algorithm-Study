@@ -3,7 +3,7 @@ package algorithm.hyeonbeen.week1;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-public class Implementation2 {
+public class BOJ_3474 {
 
     public static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     public static final StringBuffer sb = new StringBuffer();

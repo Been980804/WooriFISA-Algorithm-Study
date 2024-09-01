@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Stack;
 
-public class Implementation1 {
+public class BOJ_9012 {
     
     public static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     public static final StringBuffer sb = new StringBuffer();
