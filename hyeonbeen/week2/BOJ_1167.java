@@ -48,7 +48,6 @@ public class BOJ_1167 {
 
         for(int i = 1; i <= V; i++){
             if(link[node][i] != 0 && !visited[i]){
-                System.out.println(maxDistance[node] + link[node][i]);
                 maxDistance[node] = Math.max(maxDistance[node], maxDistance[node] + link[node][i]);
                 
                 dfs(i, maxDistance);
