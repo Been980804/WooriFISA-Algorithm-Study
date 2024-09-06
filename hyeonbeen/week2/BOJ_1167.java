@@ -2,65 +2,78 @@ package algorithm.hyeonbeen.week2;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 public class BOJ_1167 {
     
+    static class Node{           // 연결된 노드와 거리를 담을 객체
+        int nextNode;
+        int distance;
+
+        public Node(int nextNode, int distance){
+            this.nextNode = nextNode;
+            this.distance = distance;
+        }
+    }
+
     public static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     public static final StringBuffer sb = new StringBuffer();
     public static StringTokenizer st;
 
-    public static int[][] link;
+    public static ArrayList<Node>[] list;
     public static boolean[] visited;
-    public static int V, ans;
-    public static int[] maxDistance;
+    public static int V, finalNode;
+    public static int ans = 0;
 
-    public static void main(String[] args) throws Exception {
-        V = Integer.parseInt(br.readLine());    // 트리 정점의 개수
+    @SuppressWarnings("unchecked")
+   public static void main(String[] args) throws Exception {
+         V = Integer.parseInt(br.readLine());
 
-        link = new int[V+1][V+1];
-        visited = new boolean[V+1];
+         list = new ArrayList[V + 1];
+         visited = new boolean[V + 1];
 
-        for(int i = 1; i <= V; i++){
+         finalNode = 0;
+
+         for(int i = 1; i <= V; i++){
+            list[i] = new ArrayList<>();
+         }
+
+         for(int i = 0; i < V; i++){
             st = new StringTokenizer(br.readLine());
-            int node1 = Integer.parseInt(st.nextToken());
-
+            int node = Integer.parseInt(st.nextToken());          // 메인 노드
+            
             while(st.hasMoreTokens()){
-                String token = st.nextToken();
-                if(token.equals("-1")) break;
+               int nextNode = Integer.parseInt(st.nextToken());   // 메인 노드와 연결된 노드
+               
+               if(nextNode == -1) break;
 
-                int node2 = Integer.parseInt(token);
-
-                if(st.hasMoreTokens()){
-                    int distance = Integer.parseInt(st.nextToken());
-                    link[node1][node2] = distance;
-                }
+               int distance = Integer.parseInt(st.nextToken());   // 두 노드 사이 거리
+               list[node].add(new Node(nextNode, distance));
             }
-        }
-        ans = 0;
-        maxDistance = new int[V+1];
-        System.out.println(dfs(1, maxDistance));
+         }
 
+         dfs(1,0);             // 1번 노드부터 가장 거리가 먼 노드 찾고
+
+         visited = new boolean[V + 1];
+         dfs(finalNode, 0);         // 가장 먼 노드부터 다시 되돌아 감 / 이유 : 1번노드가 중간 노드일 수 있음
+
+         System.out.println(ans);
     }
 
-    public static int dfs(int node, int[] maxDistance){
-        visited[node] = true;
+    public static void dfs(int node, int distance){
+      if(distance > ans){
+         ans = distance;
+         finalNode = node;
+      }
 
-        for(int i = 1; i <= V; i++){
-            if(link[node][i] != 0 && !visited[i]){
-                maxDistance[node] = Math.max(maxDistance[node], maxDistance[node] + link[node][i]);
-                
-                dfs(i, maxDistance);
-            }
-        }
-        
-        for(int i = 1; i <= V; i++){
-            ans = Math.max(ans, maxDistance[i]);
-        }
-
-        return ans;
+      visited[node] = true;      
+      for(Node n : list[node]){
+         if(!visited[n.nextNode]){
+            dfs(n.nextNode, distance + n.distance);
+         }
+      }
     }
-    
 }
 
 /*
