@@ -23,8 +23,8 @@ public class Main {
                     opt.append(cur);
                 else if (cur == '[')
                     opt.append(']');
-                else if
-                (cur == ']') opt.append('[');
+                else if (cur == ']')
+                    opt.append('[');
                 else if (('A' <= cur && cur <= 'Z') || ('a' <= cur && cur <= 'z'))
                     end += cur;
             }
