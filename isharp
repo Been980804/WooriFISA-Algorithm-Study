@@ -1,0 +1,42 @@
+import java.io.*;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
+
+        // 입력 처리
+        String input = br.readLine();
+        input = input.replaceAll("[,;]", ""); // 쉼표와 세미콜론 제거
+        String[] str = input.split(" ");
+
+        for (int i = 1; i < str.length; i++) {
+            StringBuilder type = new StringBuilder(str[0]); // 첫 번째 요소를 타입으로 설정
+            StringBuilder name = new StringBuilder();
+            int idx = 0;
+
+            // 알파벳 부분 찾기
+            while (idx < str[i].length() && Character.isAlphabetic(str[i].charAt(idx))) {
+                name.append(str[i].charAt(idx));
+                idx++;
+            }
+
+            // 뒤에서부터 처리
+            for (int j = str[i].length() - 1; j >= idx; j--) {
+                char c = str[i].charAt(j);
+                if (c == ']') {
+                    type.append("[]");
+                    j--; 
+                } else {
+                    type.append(c);
+                }
+            }
+
+            
+            sb.append(type).append(" ").append(name).append(";\n");
+        }
+
+        
+        System.out.print(sb.toString());
+    }
+}
